@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
     secret: 'secreto-reto-4',
     resave: false,
@@ -23,7 +24,5 @@ app.use(session({
 }));
 
 app.use('/', indexRouter);
-
-app.listen(3001, () => console.log("Servidor en http://localhost:3001"));
 
 module.exports = app;
