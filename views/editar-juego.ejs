@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Editar Videojuego</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/juegos/actualizar/<%= juego.id %>" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Título</label>
+                        <input type="text" name="titulo" class="form-control" value="<%= juego.titulo %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Plataforma</label>
+                        <input type="text" name="plataforma" class="form-control" value="<%= juego.plataforma %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Género</label>
+                        <input type="text" name="genero" class="form-control" value="<%= juego.genero %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Estado</label>
+                        <select name="estado" class="form-select">
+                            <option value="Pendiente" <%= juego.estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+                            <option value="En progreso" <%= juego.estado === 'En progreso' ? 'selected' : '' %>>En progreso</option>
+                            <option value="Completado" <%= juego.estado === 'Completado' ? 'selected' : '' %>>Completado</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="/coleccion" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

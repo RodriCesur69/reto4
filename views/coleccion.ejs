@@ -52,6 +52,9 @@
                     </span>
                 </div>
                 <div class="card-footer bg-transparent border-0 text-end pb-3">
+                    <a href="/juegos/editar/<%= juego.id %>" class="btn btn-outline-primary btn-sm me-1">
+                        <i class="bi bi-pencil"></i>
+                    </a>
                     <a href="/juegos/eliminar/<%= juego.id %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Eliminar juego?')">
                         <i class="bi bi-trash3"></i>
                     </a>

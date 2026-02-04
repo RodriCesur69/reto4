@@ -23,6 +23,7 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res) {
   const usuario = usuarioDao.findUserByEmail(req.body.email);
   
+  // Si los datos son correctos, creamos la sesión y vamos a la coleccion
   if(usuario && req.body.password === usuario.password){
     req.session.user = { email: usuario.email, id: usuario.id };
     res.redirect("/coleccion");
@@ -31,7 +32,7 @@ router.post('/login', function(req, res) {
   }
 });
 
-// Muestra la lista de juegos
+// Muestra la lista de juegos (solo si el usuario está con la sesion iniciadoa)
 router.get('/coleccion', authMiddleware, function(req, res) {
   const filtros = {
       plataforma: req.query.plataforma,
@@ -46,6 +47,22 @@ router.get('/coleccion', authMiddleware, function(req, res) {
       juegos: misJuegos,
       query: req.query 
   });
+});
+
+router.get('/juegos/editar/:id', authMiddleware, function(req, res) {
+  const juego = juegoDao.findJuegoById(req.params.id);
+  res.render('editar-juego', { juego: juego, user: req.session.user });
+});
+
+router.post('/juegos/actualizar/:id', authMiddleware, function(req, res) {
+  const { titulo, plataforma, genero, estado } = req.body;
+  juegoDao.updateJuego(req.params.id, titulo, plataforma, genero, estado);
+  res.redirect('/coleccion');
+});
+
+router.get('/juegos/eliminar/:id', authMiddleware, function(req, res) {
+  juegoDao.deleteJuego(req.params.id);
+  res.redirect('/coleccion');
 });
 
 // Cerrar sesion
