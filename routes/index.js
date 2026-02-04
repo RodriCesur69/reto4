@@ -49,6 +49,13 @@ router.get('/coleccion', authMiddleware, function(req, res) {
   });
 });
 
+// Ruta para insertar un nuevo juego
+router.post('/juegos/insertar', authMiddleware, function(req, res) {
+  const { titulo, plataforma, genero, estado } = req.body;
+  juegoDao.saveJuego(req.session.user.id, titulo, plataforma, genero, estado);
+  res.redirect('/coleccion');
+});
+
 router.get('/juegos/editar/:id', authMiddleware, function(req, res) {
   const juego = juegoDao.findJuegoById(req.params.id);
   res.render('editar-juego', { juego: juego, user: req.session.user });
