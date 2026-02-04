@@ -1,0 +1,76 @@
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        <h2 class="fw-bold"><i class="bi bi-collection-play"></i> Mis Juegos</h2>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalNuevoJuego">
+            <i class="bi bi-plus-lg"></i> Añadir
+        </button>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body bg-white">
+        <form action="/coleccion" method="GET" class="row g-2">
+            <div class="col-md-3">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text"><i class="bi bi-display"></i></span>
+                    <input type="text" name="plataforma" class="form-control" placeholder="Plataforma" value="<%= query.plataforma || '' %>">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                    <input type="text" name="genero" class="form-control" placeholder="Género" value="<%= query.genero || '' %>">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="estado" class="form-select form-select-sm">
+                    <option value="">Cualquier estado</option>
+                    <option value="Pendiente" <%= query.estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+                    <option value="En progreso" <%= query.estado === 'En progreso' ? 'selected' : '' %>>En progreso</option>
+                    <option value="Completado" <%= query.estado === 'Completado' ? 'selected' : '' %>>Completado</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-dark btn-sm w-100">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <% juegos.forEach((juego) => { %>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-uppercase"><%= juego.titulo %></h5>
+                    <p class="mb-1 small"><strong>Plataforma:</strong> <%= juego.plataforma %></p>
+                    <p class="mb-2 small"><strong>Género:</strong> <%= juego.genero %></p>
+                    <span class="badge <%= juego.estado === 'Completado' ? 'bg-success' : (juego.estado === 'En progreso' ? 'bg-warning text-dark' : 'bg-secondary') %>">
+                        <%= juego.estado %>
+                    </span>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end pb-3">
+                    <a href="/juegos/eliminar/<%= juego.id %>" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Eliminar juego?')">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<div class="modal fade" id="modalNuevoJuego" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">Nuevo Videojuego</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <%- include('formulario-juego.ejs') %>
+            </div>
+        </div>
+    </div>
+</div>
