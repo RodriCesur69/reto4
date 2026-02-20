@@ -12,6 +12,36 @@
     </div>
 </div>
 
+<div class="card shadow-sm mb-4">
+    <div class="card-body bg-white">
+        <form action="/coleccion" method="GET" class="row g-2">
+            <div class="col-md-3">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text"><i class="bi bi-display"></i></span>
+                    <input type="text" name="plataforma" class="form-control" placeholder="Plataforma" value="<%= query.plataforma || '' %>">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                    <input type="text" name="genero" class="form-control" placeholder="Género" value="<%= query.genero || '' %>">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="estado" class="form-select form-select-sm">
+                    <option value="">Cualquier estado</option>
+                    <option value="Pendiente" <%= query.estado === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+                    <option value="En progreso" <%= query.estado === 'En progreso' ? 'selected' : '' %>>En progreso</option>
+                    <option value="Completado" <%= query.estado === 'Completado' ? 'selected' : '' %>>Completado</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-dark btn-sm w-100">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="row row-cols-1 row-cols-md-3 g-4" id="contenedorJuegos">
     <% juegos.forEach((juego) => { %>
         <div class="col tarjeta-juego" data-id="<%= juego.id %>">
@@ -40,18 +70,4 @@
             </div>
         </div>
     <% }); %>
-</div>
-
-<div class="modal fade" id="modalNuevoJuego" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title">Nuevo Videojuego</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <%- include('formulario-juego.ejs') %>
-            </div>
-        </div>
-    </div>
 </div>

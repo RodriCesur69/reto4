@@ -66,10 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const manejarFormulario = async (e) => {
         const form = e.target;
-       
         if (form.id === 'formInsertar' || form.id === 'formEditar') {
             e.preventDefault(); 
-            
             const formData = new FormData(form);
             const datos = Object.fromEntries(formData.entries());
 
@@ -79,10 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(datos)
                 });
-
                 const data = await res.json();
                 if (data.success) {
-                  
                     window.location.href = '/coleccion';
                 }
             } catch (error) {
