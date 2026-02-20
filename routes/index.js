@@ -9,16 +9,13 @@ var db = Database.getInstance("videojuegos.db");
 var usuarioDao = new UsuarioDAO(db);
 var juegoDao = new JuegoDAO(db);
 
-
 router.get('/', function(req, res) {
   res.render('index', { title: 'Gestión de Videojuegos' });
 });
 
-
 router.get('/login', function(req, res) {
   res.render('login', { error: null });
 });
-
 
 router.post('/login', function(req, res) {
   const usuario = usuarioDao.findUserByEmail(req.body.email);
@@ -29,7 +26,6 @@ router.post('/login', function(req, res) {
     res.render('login', { error: 'Datos incorrectos' });
   }
 });
-
 
 router.get('/coleccion', authMiddleware, function(req, res) {
   const filtros = {
@@ -45,7 +41,6 @@ router.get('/coleccion', authMiddleware, function(req, res) {
   });
 });
 
-
 router.post('/juegos/insertar', authMiddleware, function(req, res) {
   const { titulo, plataforma, genero, estado } = req.body;
   juegoDao.saveJuego(req.session.user.id, titulo, plataforma, genero, estado);
@@ -57,7 +52,6 @@ router.get('/juegos/editar/:id', authMiddleware, function(req, res) {
   res.render('editar-juego', { juego: juego, user: req.session.user });
 });
 
-
 router.post('/juegos/actualizar/:id', authMiddleware, function(req, res) {
   const { titulo, plataforma, genero, estado } = req.body;
   juegoDao.updateJuego(req.params.id, titulo, plataforma, genero, estado);
@@ -68,7 +62,6 @@ router.get('/juegos/eliminar/:id', authMiddleware, function(req, res) {
   juegoDao.deleteJuego(req.params.id);
   res.redirect('/coleccion');
 });
-
 
 router.get('/logout', function(req, res) {
   req.session.destroy();

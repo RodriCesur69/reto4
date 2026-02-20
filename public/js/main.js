@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = '/coleccion';
                 }
             } catch (error) {
-                console.error("Error:", error);
+                console.error(error);
             }
         }
     };
