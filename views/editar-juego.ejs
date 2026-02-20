@@ -5,7 +5,7 @@
                 <h4 class="mb-0">Editar Videojuego</h4>
             </div>
             <div class="card-body p-4">
-                <form action="/juegos/actualizar/<%= juego.id %>" method="POST">
+                <form id="formEditar" action="/juegos/actualizar/<%= juego.id %>" method="POST">
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Título</label>
                         <input type="text" name="titulo" class="form-control" value="<%= juego.titulo %>" required>
@@ -35,3 +35,4 @@
         </div>
     </div>
 </div>
+<script src="/js/main.js"></script>
